@@ -28,53 +28,53 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBox1 = new ListBox();
-            label1 = new Label();
-            label2 = new Label();
-            lblLastName = new TextBox();
-            lblFirstName = new TextBox();
+            listUsers = new ListBox();
+            lblFirstName = new Label();
+            lblLastName = new Label();
+            txtLastName = new TextBox();
+            txtFirstName = new TextBox();
             btnAdd = new Button();
             SuspendLayout();
             // 
-            // listBox1
+            // listUsers
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(61, 107);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(275, 292);
-            listBox1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(387, 128);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 32);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(387, 193);
-            label2.Name = "label2";
-            label2.Size = new Size(78, 32);
-            label2.TabIndex = 2;
-            label2.Text = "label2";
-            // 
-            // lblLastName
-            // 
-            lblLastName.Location = new Point(494, 128);
-            lblLastName.Name = "lblLastName";
-            lblLastName.Size = new Size(200, 39);
-            lblLastName.TabIndex = 3;
+            listUsers.FormattingEnabled = true;
+            listUsers.Location = new Point(61, 107);
+            listUsers.Name = "listUsers";
+            listUsers.Size = new Size(275, 292);
+            listUsers.TabIndex = 0;
             // 
             // lblFirstName
             // 
-            lblFirstName.Location = new Point(494, 190);
+            lblFirstName.AutoSize = true;
+            lblFirstName.Location = new Point(387, 128);
             lblFirstName.Name = "lblFirstName";
-            lblFirstName.Size = new Size(200, 39);
-            lblFirstName.TabIndex = 4;
+            lblFirstName.Size = new Size(78, 32);
+            lblFirstName.TabIndex = 1;
+            lblFirstName.Text = "label1";
+            // 
+            // lblLastName
+            // 
+            lblLastName.AutoSize = true;
+            lblLastName.Location = new Point(387, 193);
+            lblLastName.Name = "lblLastName";
+            lblLastName.Size = new Size(78, 32);
+            lblLastName.TabIndex = 2;
+            lblLastName.Text = "label2";
+            // 
+            // txtLastName
+            // 
+            txtLastName.Location = new Point(494, 128);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(200, 39);
+            txtLastName.TabIndex = 3;
+            // 
+            // txtFirstName
+            // 
+            txtFirstName.Location = new Point(494, 190);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.Size = new Size(200, 39);
+            txtFirstName.TabIndex = 4;
             // 
             // btnAdd
             // 
@@ -84,6 +84,7 @@
             btnAdd.TabIndex = 5;
             btnAdd.Text = "button1";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // Form1
             // 
@@ -91,11 +92,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1254, 642);
             Controls.Add(btnAdd);
-            Controls.Add(lblFirstName);
+            Controls.Add(txtFirstName);
+            Controls.Add(txtLastName);
             Controls.Add(lblLastName);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(listBox1);
+            Controls.Add(lblFirstName);
+            Controls.Add(listUsers);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -104,11 +105,11 @@
 
         #endregion
 
-        private ListBox listBox1;
-        private Label label1;
-        private Label label2;
-        private TextBox lblLastName;
-        private TextBox lblFirstName;
+        private ListBox listUsers;
+        private Label lblFirstName;
+        private Label lblLastName;
+        private TextBox txtLastName;
+        private TextBox txtFirstName;
         private Button btnAdd;
     }
 }
