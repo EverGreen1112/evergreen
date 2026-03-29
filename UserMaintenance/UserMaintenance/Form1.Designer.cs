@@ -33,6 +33,7 @@
             txtFullName = new TextBox();
             btnAdd = new Button();
             btnSave = new Button();
+            btnDelete = new Button();
             SuspendLayout();
             // 
             // listUsers
@@ -46,7 +47,7 @@
             // lblFullName
             // 
             lblFullName.AutoSize = true;
-            lblFullName.Location = new Point(361, 193);
+            lblFullName.Location = new Point(361, 150);
             lblFullName.Name = "lblFullName";
             lblFullName.Size = new Size(78, 32);
             lblFullName.TabIndex = 2;
@@ -54,14 +55,14 @@
             // 
             // txtFullName
             // 
-            txtFullName.Location = new Point(494, 190);
+            txtFullName.Location = new Point(494, 147);
             txtFullName.Name = "txtFullName";
             txtFullName.Size = new Size(200, 39);
             txtFullName.TabIndex = 4;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(361, 273);
+            btnAdd.Location = new Point(361, 215);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(333, 46);
             btnAdd.TabIndex = 5;
@@ -71,7 +72,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(361, 334);
+            btnSave.Location = new Point(361, 276);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(333, 46);
             btnSave.TabIndex = 6;
@@ -79,11 +80,22 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(361, 337);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(333, 46);
+            btnDelete.TabIndex = 7;
+            btnDelete.Text = "buttonDelete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1254, 642);
+            Controls.Add(btnDelete);
             Controls.Add(btnSave);
             Controls.Add(btnAdd);
             Controls.Add(txtFullName);
@@ -102,5 +114,6 @@
         private TextBox txtFullName;
         private Button btnAdd;
         private Button btnSave;
+        private Button btnDelete;
     }
 }

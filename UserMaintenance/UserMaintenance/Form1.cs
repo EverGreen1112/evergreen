@@ -12,6 +12,7 @@ namespace UserMaintenance
             lblFullName.Text = Resource1.FullName;
             btnAdd.Text = Resource1.Add;
             btnSave.Text = Resource1.SaveToFile;
+            btnDelete.Text = Resource1.Delete;
 
             listUsers.DataSource = users;
             listUsers.ValueMember = "ID";
@@ -44,6 +45,14 @@ namespace UserMaintenance
                     }
                 }
                 MessageBox.Show("A lista sikeresen elmentve!", "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (listUsers.SelectedIndex != -1)
+            {
+                users.RemoveAt(listUsers.SelectedIndex);
             }
         }
     }
