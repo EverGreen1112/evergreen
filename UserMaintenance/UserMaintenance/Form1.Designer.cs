@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             listUsers = new ListBox();
-            lblFirstName = new Label();
-            lblLastName = new Label();
-            txtLastName = new TextBox();
-            txtFirstName = new TextBox();
+            lblFullName = new Label();
+            txtFullName = new TextBox();
             btnAdd = new Button();
+            btnSave = new Button();
             SuspendLayout();
             // 
             // listUsers
@@ -44,58 +43,51 @@
             listUsers.Size = new Size(275, 292);
             listUsers.TabIndex = 0;
             // 
-            // lblFirstName
+            // lblFullName
             // 
-            lblFirstName.AutoSize = true;
-            lblFirstName.Location = new Point(387, 128);
-            lblFirstName.Name = "lblFirstName";
-            lblFirstName.Size = new Size(78, 32);
-            lblFirstName.TabIndex = 1;
-            lblFirstName.Text = "label1";
+            lblFullName.AutoSize = true;
+            lblFullName.Location = new Point(361, 193);
+            lblFullName.Name = "lblFullName";
+            lblFullName.Size = new Size(78, 32);
+            lblFullName.TabIndex = 2;
+            lblFullName.Text = "label2";
             // 
-            // lblLastName
+            // txtFullName
             // 
-            lblLastName.AutoSize = true;
-            lblLastName.Location = new Point(387, 193);
-            lblLastName.Name = "lblLastName";
-            lblLastName.Size = new Size(78, 32);
-            lblLastName.TabIndex = 2;
-            lblLastName.Text = "label2";
-            // 
-            // txtLastName
-            // 
-            txtLastName.Location = new Point(494, 128);
-            txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(200, 39);
-            txtLastName.TabIndex = 3;
-            // 
-            // txtFirstName
-            // 
-            txtFirstName.Location = new Point(494, 190);
-            txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(200, 39);
-            txtFirstName.TabIndex = 4;
+            txtFullName.Location = new Point(494, 190);
+            txtFullName.Name = "txtFullName";
+            txtFullName.Size = new Size(200, 39);
+            txtFullName.TabIndex = 4;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(387, 274);
+            btnAdd.Location = new Point(361, 273);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(307, 46);
+            btnAdd.Size = new Size(333, 46);
             btnAdd.TabIndex = 5;
             btnAdd.Text = "button1";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.Location = new Point(361, 334);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(333, 46);
+            btnSave.TabIndex = 6;
+            btnSave.Text = "buttonSave";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1254, 642);
+            Controls.Add(btnSave);
             Controls.Add(btnAdd);
-            Controls.Add(txtFirstName);
-            Controls.Add(txtLastName);
-            Controls.Add(lblLastName);
-            Controls.Add(lblFirstName);
+            Controls.Add(txtFullName);
+            Controls.Add(lblFullName);
             Controls.Add(listUsers);
             Name = "Form1";
             Text = "Form1";
@@ -106,10 +98,9 @@
         #endregion
 
         private ListBox listUsers;
-        private Label lblFirstName;
-        private Label lblLastName;
-        private TextBox txtLastName;
-        private TextBox txtFirstName;
+        private Label lblFullName;
+        private TextBox txtFullName;
         private Button btnAdd;
+        private Button btnSave;
     }
 }

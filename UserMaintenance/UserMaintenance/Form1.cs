@@ -9,9 +9,9 @@ namespace UserMaintenance
         public Form1()
         {
             InitializeComponent();
-            txtLastName.Text = Resource1.LastName;
-            txtFirstName.Text = Resource1.FirstName;
+            lblFullName.Text = Resource1.FullName;
             btnAdd.Text = Resource1.Add;
+            btnSave.Text = Resource1.SaveToFile;
 
             listUsers.DataSource = users;
             listUsers.ValueMember = "ID";
@@ -22,10 +22,29 @@ namespace UserMaintenance
         {
             var u = new User()
             {
-                LastName = txtLastName.Text,
-                FirstName = txtFirstName.Text
+                FullName = txtFullName.Text
             };
             users.Add(u);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV fájlok (*.csv)|*.csv|Minden fájl (*.*)|*.*";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                {
+                    sw.WriteLine("ID;FullName");
+
+                    foreach (var user in users)
+                    {
+                        sw.WriteLine($"{user.ID};{user.FullName}");
+                    }
+                }
+                MessageBox.Show("A lista sikeresen elmentve!", "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
