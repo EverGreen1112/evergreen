@@ -50,6 +50,20 @@ namespace UnitTestExample.Controllers
 
         public bool ValidatePassword(string password)
         {
+            if (string.IsNullOrEmpty(password)) return false;
+
+            // 1. Legalább 8 karakter, csak angol kis/nagybetű + szám
+            if (!Regex.IsMatch(password, "^[a-zA-Z0-9]{8,}$")) return false;
+
+            // 2. Tartalmaz-e kisbetűt?
+            if (!Regex.IsMatch(password, "[a-z]")) return false;
+
+            // 3. Tartalmaz-e nagybetűt?
+            if (!Regex.IsMatch(password, "[A-Z]")) return false;
+
+            // 4. Tartalmaz-e számot?
+            if (!Regex.IsMatch(password, "[0-9]")) return false;
+
             return true;
         }
     }
