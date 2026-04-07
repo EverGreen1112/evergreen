@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 using System.Text.RegularExpressions;
+using System.Activities;
+
 
 namespace UnitTestExample.Test
 {
@@ -62,6 +64,31 @@ namespace UnitTestExample.Test
             Assert.AreEqual(email, actualResult.Email); // Egyezik az e-mail?
             Assert.AreEqual(password, actualResult.Password); // Egyezik a jelszó?
             Assert.AreNotEqual(Guid.Empty, actualResult.ID); // Kapott azonosítót (nem üres)?
+        }
+
+        [Test]
+        [TestCase("irf@uni-corvinus", "Abcd1234")]       // Rossz e-mail
+        [TestCase("irf.uni-corvinus.hu", "Abcd1234")]    // Rossz e-mail
+        [TestCase("irf@uni-corvinus.hu", "abcd1234")]    // Rossz jelszó (nincs nagybetű)
+        [TestCase("irf@uni-corvinus.hu", "ABCD1234")]    // Rossz jelszó (nincs kisbetű)
+        [TestCase("irf@uni-corvinus.hu", "abcdABCD")]    // Rossz jelszó (nincs szám)
+        [TestCase("irf@uni-corvinus.hu", "Ab1234")]      // Rossz jelszó (rövid)
+        public void TestRegisterValidateException(string email, string password)
+        {
+            // Arrange
+            var accountController = new AccountController();
+
+            // Act
+            try
+            {
+                var actualResult = accountController.Register(email, password);
+                Assert.Fail(); // Ha idáig eljut hiba nélkül, akkor megbukott a teszt!
+            }
+            catch (Exception ex)
+            {
+                // Assert
+                Assert.IsInstanceOf<ValidationException>(ex);
+            }
         }
     }
 }

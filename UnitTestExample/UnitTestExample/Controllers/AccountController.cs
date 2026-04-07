@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UnitTestExample.Abstractions;
 using UnitTestExample.Entities;
 using UnitTestExample.Services;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace UnitTestExample.Controllers
 {
@@ -22,7 +23,11 @@ namespace UnitTestExample.Controllers
 
         public Account Register(string email, string password)
         {
-            if(!ValidateEmail(email))
+            if (!ValidateEmail(email) || !ValidatePassword(password))
+            {
+                throw new System.Activities.ValidationException("Érvénytelen e-mail cím vagy jelszó!");
+            }
+            if (!ValidateEmail(email))
                 throw new ValidationException(
                     "A megadott e-mail cím nem megfelelő!");
             if(!ValidateEmail(email))
