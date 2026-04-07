@@ -46,5 +46,22 @@ namespace UnitTestExample.Test
             // Assert - Ellenőrzés
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [Test]
+        [TestCase("irf@uni-corvinus.hu", "TokeletesJelszo123")]
+        [TestCase("tesztelek@gmail.com", "HosszuJelszo99")]
+        public void TestRegisterHappyPath(string email, string password)
+        {
+            // Arrange - Előkészítés
+            var accountController = new AccountController();
+
+            // Act - Cselekvés
+            var actualResult = accountController.Register(email, password);
+
+            // Assert - Ellenőrzés
+            Assert.AreEqual(email, actualResult.Email); // Egyezik az e-mail?
+            Assert.AreEqual(password, actualResult.Password); // Egyezik a jelszó?
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID); // Kapott azonosítót (nem üres)?
+        }
     }
 }
