@@ -1,12 +1,15 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using System;
+using System.Activities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using UnitTestExample.Controllers;
 using System.Text.RegularExpressions;
-using System.Activities;
+using System.Threading.Tasks;
+using UnitTestExample.Abstractions;
+using UnitTestExample.Controllers;
+using UnitTestExample.Entities;
 
 
 namespace UnitTestExample.Test
@@ -14,10 +17,10 @@ namespace UnitTestExample.Test
     public class AccountControllerTestFixture
     {
         [Test]
-        [TestCase("abcd1234", false)]             // Jelszó e-mail helyett
-        [TestCase("irf@uni-corvinus", false)]     // Hiányzó domain
-        [TestCase("irf.uni-corvinus.hu", false)]  // Hiányzó @ jel
-        [TestCase("irf@uni-corvinus.hu", true)]   // Helyes e-mail
+        [TestCase("abcd1234", false)]             
+        [TestCase("irf@uni-corvinus", false)]     
+        [TestCase("irf.uni-corvinus.hu", false)]  
+        [TestCase("irf@uni-corvinus.hu", true)]   
         public void TestValidateEmail(string email, bool expectedResult)
         {
             // Arrange - Előkészítés
@@ -31,21 +34,18 @@ namespace UnitTestExample.Test
         }
 
         [Test]
-        [TestCase("nincsszam", false)]         // Nincs szám
-        [TestCase("NINCSKISBETU1", false)]     // Nincs kisbetű
-        [TestCase("nincsnagybetu1", false)]    // Nincs nagybetű
-        [TestCase("Rövid1", false)]            // Túl rövid (kevesebb mint 8 karakter)
-        [TestCase("TokeletesJelszo123", true)] // Megfelelő jelszó
+        [TestCase("nincsszam", false)]    
+        [TestCase("NINCSKISBETU1", false)]    
+        [TestCase("nincsnagybetu1", false)]   
+        [TestCase("Rövid1", false)]            
+        [TestCase("TokeletesJelszo123", true)] 
 
         public void TestValidatePassword(string password, bool expectedResult)
         {
-            // Arrange - Előkészítés
             var accountController = new AccountController();
 
-            // Act - Cselekvés
             var actualResult = accountController.ValidatePassword(password);
 
-            // Assert - Ellenőrzés
             Assert.AreEqual(expectedResult, actualResult);
         }
 
@@ -54,13 +54,10 @@ namespace UnitTestExample.Test
         [TestCase("tesztelek@gmail.com", "HosszuJelszo99")]
         public void TestRegisterHappyPath(string email, string password)
         {
-            // Arrange - Előkészítés
             var accountController = new AccountController();
 
-            // Act - Cselekvés
             var actualResult = accountController.Register(email, password);
 
-            // Assert - Ellenőrzés
             Assert.AreEqual(email, actualResult.Email); // Egyezik az e-mail?
             Assert.AreEqual(password, actualResult.Password); // Egyezik a jelszó?
             Assert.AreNotEqual(Guid.Empty, actualResult.ID); // Kapott azonosítót (nem üres)?
@@ -75,20 +72,38 @@ namespace UnitTestExample.Test
         [TestCase("irf@uni-corvinus.hu", "Ab1234")]      // Rossz jelszó (rövid)
         public void TestRegisterValidateException(string email, string password)
         {
-            // Arrange
             var accountController = new AccountController();
 
-            // Act
             try
             {
                 var actualResult = accountController.Register(email, password);
-                Assert.Fail(); // Ha idáig eljut hiba nélkül, akkor megbukott a teszt!
+                Assert.Fail(); 
             }
             catch (Exception ex)
             {
-                // Assert
                 Assert.IsInstanceOf<ValidationException>(ex);
             }
+        }
+        [Test]
+        [TestCase("irf@uni-corvinus.hu", "TokeletesJelszo123")]
+        public void TestRegisterWithMock(string email, string password)
+        {
+            var accountManagerMock = new Mock<IAccountManager>(MockBehavior.Strict);
+
+           accountManagerMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+
+            var accountController = new AccountController();
+            accountController.AccountManager = accountManagerMock.Object;
+
+            var actualResult = accountController.Register(email, password);
+
+            Assert.AreEqual(email, actualResult.Email);
+            Assert.AreEqual(password, actualResult.Password);
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID);
+
+            accountManagerMock.Verify(m => m.CreateAccount(actualResult), Times.Once);
         }
     }
 }
