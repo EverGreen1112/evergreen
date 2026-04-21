@@ -85,13 +85,16 @@ namespace Hotcakes_Desktop
             if (dgvItems.Columns["BasePricePerItem"] != null) dgvItems.Columns["BasePricePerItem"].Visible = false;
             if (dgvItems.Columns["AdjustedPricePerItem"] != null) dgvItems.Columns["AdjustedPricePerItem"].Visible = false;
             if (dgvItems.Columns["LineTotal"] != null) dgvItems.Columns["LineTotal"].Visible = false;
-            
 
 
-            //// Oszlopnevek magyarítása (opcionális)
-            //if (dgvItems.Columns["ProductName"] != null) dgvItems.Columns["ProductName"].HeaderText = "Termék neve";
-            //if (dgvItems.Columns["Quantity"] != null) dgvItems.Columns["Quantity"].HeaderText = "Darab";
-            //if (dgvItems.Columns["LineTotal"] != null) dgvItems.Columns["LineTotal"].HeaderText = "Részösszeg";
+            // magyarítás
+            if (dgvItems.Columns["Id"] != null) dgvItems.Columns["Id"].HeaderText = "Rendelés azonosító";
+            if (dgvItems.Columns["ProduktSKU"] != null) dgvItems.Columns["ProduktSKU"].HeaderText = "Vonalkód";
+            if (dgvItems.Columns["ProductName"] != null) dgvItems.Columns["ProductName"].HeaderText = "Termék neve";
+            if (dgvItems.Columns["Quantity"] != null) dgvItems.Columns["Quantity"].HeaderText = "Darab";
+
+            // oszlop átméretezés
+            dgvItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }
