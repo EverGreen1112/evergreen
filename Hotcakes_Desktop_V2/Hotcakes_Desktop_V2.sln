@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotcakes_Desktop_V2", "Hotcakes_Desktop_V2.csproj", "{56F00C65-6058-48E0-8953-FB937AC150CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56F00C65-6058-48E0-8953-FB937AC150CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F00C65-6058-48E0-8953-FB937AC150CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F00C65-6058-48E0-8953-FB937AC150CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F00C65-6058-48E0-8953-FB937AC150CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C68A37A-DD5B-48AF-862D-27B35558F302}
+	EndGlobalSection
+EndGlobal

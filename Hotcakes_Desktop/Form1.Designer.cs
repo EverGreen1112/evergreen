@@ -31,6 +31,10 @@
             lbOrders = new ListBox();
             dgvItems = new DataGridView();
             btnLoad = new Button();
+            txtSku = new TextBox();
+            txtQuantity = new TextBox();
+            btnPack = new Button();
+            btnFinish = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             SuspendLayout();
             // 
@@ -49,7 +53,7 @@
             dgvItems.Location = new Point(474, 35);
             dgvItems.Name = "dgvItems";
             dgvItems.RowHeadersWidth = 82;
-            dgvItems.Size = new Size(1295, 820);
+            dgvItems.Size = new Size(1295, 642);
             dgvItems.TabIndex = 1;
             // 
             // btnLoad
@@ -62,11 +66,49 @@
             btnLoad.UseVisualStyleBackColor = true;
             btnLoad.Click += btnLoad_Click;
             // 
+            // txtSku
+            // 
+            txtSku.Location = new Point(474, 736);
+            txtSku.Name = "txtSku";
+            txtSku.Size = new Size(403, 39);
+            txtSku.TabIndex = 3;
+            // 
+            // txtQuantity
+            // 
+            txtQuantity.Location = new Point(932, 736);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.Size = new Size(119, 39);
+            txtQuantity.TabIndex = 4;
+            // 
+            // btnPack
+            // 
+            btnPack.Location = new Point(1104, 736);
+            btnPack.Name = "btnPack";
+            btnPack.Size = new Size(150, 46);
+            btnPack.TabIndex = 5;
+            btnPack.Text = "Hozzáadás";
+            btnPack.UseVisualStyleBackColor = true;
+            btnPack.Click += btnPack_Click;
+            // 
+            // btnFinish
+            // 
+            btnFinish.Location = new Point(1574, 819);
+            btnFinish.Name = "btnFinish";
+            btnFinish.Size = new Size(180, 77);
+            btnFinish.TabIndex = 6;
+            btnFinish.Text = "Kész";
+            btnFinish.UseVisualStyleBackColor = true;
+            btnFinish.Click += btnFinish_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1798, 920);
+            Controls.Add(btnFinish);
+            Controls.Add(btnPack);
+            Controls.Add(txtQuantity);
+            Controls.Add(txtSku);
             Controls.Add(btnLoad);
             Controls.Add(dgvItems);
             Controls.Add(lbOrders);
@@ -74,6 +116,7 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -81,5 +124,9 @@
         private ListBox lbOrders;
         private DataGridView dgvItems;
         private Button btnLoad;
+        private TextBox txtSku;
+        private TextBox txtQuantity;
+        private Button btnPack;
+        private Button btnFinish;
     }
 }
