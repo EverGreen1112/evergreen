@@ -21,6 +21,9 @@ namespace Hotcakes_Desktop_V2
         {
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
             InitializeComponent();
+
+            ApplyCustomStyling();
+
             lbOrders.SelectedIndexChanged += LbOrders_SelectedIndexChanged;
         }
 
@@ -306,7 +309,134 @@ namespace Hotcakes_Desktop_V2
 
         private void FormatItemGrid()
         {
-            dgvItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // Ha valamiért üres a rács, ne omoljon össze
+            if (dgvItems.Columns.Count == 0) return;
+
+            // Kikapcsoljuk a globális kitöltést, hogy egyedileg tudjuk szabályozni
+            dgvItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // 1. SKU oszlop
+            if (dgvItems.Columns["ProductSku"] != null)
+            {
+                dgvItems.Columns["ProductSku"].HeaderText = "SKU";
+                dgvItems.Columns["ProductSku"].Width = 120;
+            }
+
+            // 2. Név oszlop (Ez kapja az összes maradék helyet)
+            if (dgvItems.Columns["ProductName"] != null)
+            {
+                dgvItems.Columns["ProductName"].HeaderText = "Név";
+                dgvItems.Columns["ProductName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            // 3. Mennyiség oszlop
+            if (dgvItems.Columns["Quantity"] != null)
+            {
+                dgvItems.Columns["Quantity"].HeaderText = "Mennyiség";
+                dgvItems.Columns["Quantity"].Width = 110;
+                // Középre igazítjuk a számokat és a fejlécet, hogy jobban mutasson
+                dgvItems.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvItems.Columns["Quantity"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            // 4. Állapot (Checkbox) oszlop
+            if (dgvItems.Columns["IsPacked"] != null)
+            {
+                dgvItems.Columns["IsPacked"].HeaderText = "Állapot";
+                dgvItems.Columns["IsPacked"].Width = 90;
+            }
+        }
+
+        private void ApplyCustomStyling()
+        {
+            // színek
+            System.Drawing.Color brandBrown = System.Drawing.Color.FromArgb(170, 155, 135);
+            System.Drawing.Color lightGray = System.Drawing.Color.FromArgb(224, 224, 224);
+            System.Drawing.Color darkText = System.Drawing.Color.FromArgb(64, 64, 64);
+
+            // ablak beállítások
+            this.BackColor = System.Drawing.Color.White;
+            this.Font = new System.Drawing.Font("Segoe UI", 11f, System.Drawing.FontStyle.Regular);
+
+            // bal oldali Panel és a rajta lévő label
+            flowLayoutPanel1.BackColor = brandBrown;
+
+            label1.ForeColor = System.Drawing.Color.White;
+            label1.Font = new System.Drawing.Font("Segoe UI", 16f, System.Drawing.FontStyle.Bold);
+            label1.BackColor = System.Drawing.Color.Transparent; // Hogy ne legyen doboza
+
+            // ListBox
+            lbOrders.BackColor = System.Drawing.Color.White;
+            lbOrders.ForeColor = darkText;
+            lbOrders.BorderStyle = BorderStyle.None;
+            lbOrders.Font = new System.Drawing.Font("Segoe UI", 12f, System.Drawing.FontStyle.Bold);
+
+            // DGV 
+            dgvItems.BackgroundColor = System.Drawing.Color.White;
+            dgvItems.BorderStyle = BorderStyle.FixedSingle;
+            dgvItems.CellBorderStyle = DataGridViewCellBorderStyle.Single; // Rácsvonal minden cella körül
+            dgvItems.GridColor = System.Drawing.Color.Gray; // Szürke rácsvonalak
+            dgvItems.RowHeadersVisible = false;
+            dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // DGV sorok
+            dgvItems.RowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
+            dgvItems.RowsDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            dgvItems.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
+
+            // Kijelölt DGV sor 
+            dgvItems.DefaultCellStyle.SelectionBackColor = brandBrown;
+            dgvItems.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+
+            // DGV fejléc 
+            dgvItems.EnableHeadersVisualStyles = false;
+            dgvItems.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvItems.ColumnHeadersDefaultCellStyle.BackColor = lightGray;
+            dgvItems.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            dgvItems.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 12f, System.Drawing.FontStyle.Bold);
+            dgvItems.ColumnHeadersHeight = 40;
+
+            // Bolvasás gomb
+            btnPack.FlatStyle = FlatStyle.Flat;
+            btnPack.FlatAppearance.BorderSize = 0;
+            btnPack.BackColor = brandBrown;
+            btnPack.ForeColor = System.Drawing.Color.White;
+            btnPack.Font = new System.Drawing.Font("Segoe UI", 12f, System.Drawing.FontStyle.Bold);
+            btnPack.Cursor = Cursors.Hand;
+
+            // Csomag kész gomb
+            btnFinish.FlatStyle = FlatStyle.Flat;
+            btnFinish.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            btnFinish.FlatAppearance.BorderSize = 2;
+            btnFinish.BackColor = lightGray;
+            btnFinish.ForeColor = System.Drawing.Color.Black;
+            btnFinish.Font = new System.Drawing.Font("Segoe UI", 14f, System.Drawing.FontStyle.Bold);
+            btnFinish.Cursor = Cursors.Hand;
+
+            // Textboxok
+            txtSku.Font = new System.Drawing.Font("Segoe UI", 14f, System.Drawing.FontStyle.Regular);
+            txtQuantity.Font = new System.Drawing.Font("Segoe UI", 14f, System.Drawing.FontStyle.Regular);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Ellenőrzi hogy van-e kijelölt éppen
+            if (!string.IsNullOrEmpty(currentOrderBvin))
+            {
+                var result = MessageBox.Show(
+                    "Jelenleg egy rendelés feldolgozása zajlik! Biztosan ki akarod lépni és megszakítani a folyamatot?",
+                    "Biztonsági figyelmeztetés",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                // Nem = nincs bezárás
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            base.OnFormClosing(e);
         }
     }
 
